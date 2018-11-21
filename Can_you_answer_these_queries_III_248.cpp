@@ -1,0 +1,94 @@
+/*#include <iostream>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
+
+#define ll long long
+#define SZ 50007
+
+int a[SZ], par[SZ];
+
+struct SegmentTree 
+{
+	int prefixSum, suffixSum, Sum, maxSum; 
+};
+
+SegmentTree tree[SZ << 3];
+
+SegmentTree merge(SegmentTree a, SegmentTree b)
+{
+	SegmentTree res;
+	res.Sum = a.Sum + b.Sum;
+	res.maxSum = max(max(a.maxSum, b.maxSum), (a.suffixSum + b.prefixSum));
+	res.prefixSum = max(a.prefixSum, a.Sum + b.prefixSum);
+	res.suffixSum = max(b.suffixSum, b.Sum + a.suffixSum);
+	return res;
+}
+
+void BUILD(int node, int start, int end)
+{
+	if (start == end)
+	{
+		int X;  cin >> X;
+		tree[node].prefixSum = tree[node].suffixSum = tree[node].Sum = tree[node].maxSum = X;
+		par[start] = node;
+		return;
+	}
+	int l = node << 1;
+	int r = node << 1 | 1;
+	int mid = (start + end) >> 1;
+	BUILD(l, start, mid);
+	BUILD(r, mid + 1, end);
+	tree[node] = merge(tree[l], tree[r]);
+}
+
+
+SegmentTree Query(int node, int start, int end, int x, int y)
+{
+	if (start == x && end == y) return tree[node];
+	int l = node << 1;
+	int r = node << 1 | 1;
+	int mid = (start + end) >> 1;
+	if (y <= mid)
+		return Query(l, start, mid, x, y); // whole side is in left
+	else if (x > mid) 
+		return Query(r, mid + 1, end, x, y); // whole side is in right
+	else
+	{
+		return merge(Query(l, start, mid, x, mid), Query(r, mid + 1, end, mid + 1, y)); // split in two side so merging
+	}
+}
+void Update(int x, int val)
+{
+	int node = par[x];
+	tree[node].prefixSum = tree[node].suffixSum = tree[node].Sum = tree[node].maxSum = val;
+	node >>= 1;
+	while (node > 0) 
+	{
+		int l = node << 1;
+		int r = node << 1 | 1;
+		tree[node] = merge(tree[l], tree[r]);
+		node >>= 1;
+	}
+}
+int main248()
+{
+	int N;
+	while (cin >> N)
+	{
+		BUILD(1, 1, N);
+		int Q;
+		cin >> Q;
+		while (Q--)
+		{
+			int x, y, op;
+			cin >> op >> x >> y;
+			if (op == 1)
+				cout << Query(1, 1, N, x, y).maxSum << endl;
+			else
+				Update(x, y);
+		}
+	}
+	return 0;
+}*/
