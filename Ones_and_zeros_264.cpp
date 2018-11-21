@@ -1,0 +1,43 @@
+/*#include<iostream>
+#include<string>
+#include<list>
+#define ll long long
+
+using namespace std;
+
+int n;
+ll a = 0;
+string ans;
+
+void bfs()
+{
+	pair <string, int> x;
+	list <pair<string, int>> q;
+	q.push_back(pair<string, int>("1", 1));
+	while (!q.empty())
+	{
+		x = q.front();		
+		if (x.second % n == 0)
+		{
+			ans = x.first;
+			return;
+		}
+		x.second %= n;
+		q.pop_front();
+		q.push_back(pair<string, int>(x.first + "0", x.second * 10));
+		q.push_back(pair<string, int>(x.first + "1", x.second * 10 + 1));
+	}
+}
+
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		cin >> n;
+		bfs();
+		cout << ans << endl;
+	}
+	return 0;
+}*/
